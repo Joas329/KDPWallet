@@ -18,7 +18,7 @@ public class UserController {
 //    }
 
   //  @ApiOperation(value = "To access particular employee by passing the employee id", response = User.class, code = 200)
-    @RequestMapping(value = "/hello")
+    @GetMapping(value = "/hello")
     public String createProduct() {
         return "Product is  chupamelaaa saved successfully";
     }
