@@ -20,34 +20,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public class UserController {
 
     @Autowired
-    UserRepo userRepo;
-  //  @ApiOperation(value = "To access particular employee by passing the employee id", response = User.class, code = 200)
-    @GetMapping(value = "/hello")
-    public String createProduct() {
-        return "Product is  chupamelaaa saved successfully";
-    }
-
-    ConcurrentHashMap<String, User> employees = new ConcurrentHashMap<>();
-
- //   @ApiOperation(value = "To access particular employee by passing the employee id", response = User.class, code = 200)
-    @GetMapping("/{id}")
-    public User getContact(@PathVariable String id){
-        return employees.get(id);
-    }
-
-  //  @ApiOperation(value = "get op", response = String.class, code = 200)
-    @PostMapping("/postsmt")
-    public String postSmt(){
-        return "this is a post operation";
-    }
-
-
-   // @ApiOperation(value = "get op", response = String.class, code = 200)
-    @GetMapping("/getsmt")
-    public String getSmt(){
-        return "this is a post operation";
-    }
-
+    private UserRepo userRepo;
 
     @PostMapping("createuser")
     public ResponseEntity<User> createUser(@RequestBody User user){
@@ -56,6 +29,17 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.CREATED)
                 .contentType(MediaType.APPLICATION_JSON)
                 .body(user);
+    }
+
+    @DeleteMapping("deleteuser/{id}")
+    public void deleteUser(@PathVariable String id){
+        User user = userRepo.getReferenceById(id);
+
+        if(user == null){
+            throw new RuntimeException("user not found");
+        }
+
+        userRepo.delete(user);
     }
 }
 
