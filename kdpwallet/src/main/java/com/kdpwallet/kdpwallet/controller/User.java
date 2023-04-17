@@ -22,6 +22,7 @@ public class User {
 
     @Id
     @Column(name = "userId")
+    @NonNull
     private String userId ;
 
     @Column(name = "firstName")
