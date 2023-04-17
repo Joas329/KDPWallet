@@ -7,6 +7,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Email;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
@@ -16,11 +17,12 @@ import java.util.UUID;
 @Entity
 @Data
 @Table(name = "users")
+@RequiredArgsConstructor
 public class User {
 
     @Id
     @Column(name = "userId")
-    private String userId = UUID.randomUUID().toString() ;
+    private int userId ;
 
     @Column(name = "firstName")
     @NonNull
@@ -39,4 +41,7 @@ public class User {
     @NonNull
     private String password;
 
+    public User() {
+
+    }
 }

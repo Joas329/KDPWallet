@@ -4,6 +4,7 @@ package com.kdpwallet.kdpwallet.controller;
 //import io.swagger.annotations.ApiOperation;
 import com.kdpwallet.kdpwallet.repos.UserRepo;
 import io.swagger.v3.oas.models.annotations.OpenAPI30;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +19,7 @@ import java.util.concurrent.ConcurrentHashMap;
 //@Api(value = "Employee Management", protocols = "https")
 public class UserController {
 
-
+    @Autowired
     UserRepo userRepo;
   //  @ApiOperation(value = "To access particular employee by passing the employee id", response = User.class, code = 200)
     @GetMapping(value = "/hello")
@@ -47,11 +48,11 @@ public class UserController {
         return "this is a post operation";
     }
 
-    @PostMapping("adduser")
-    public ResponseEntity<User> saveUser(@RequestBody User user){
 
-        return new ResponseEntity<>(userRepo.save(user), HttpStatus.CREATED);
-
+    @PostMapping("createuser")
+    public ResponseEntity<User> createUser(@RequestBody User user){
+        System.out.println(user);
+        userRepo.save(user);
         return ResponseEntity.status(HttpStatus.CREATED)
                 .contentType(MediaType.APPLICATION_JSON)
                 .body(user);
