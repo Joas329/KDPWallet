@@ -2,8 +2,14 @@ package com.kdpwallet.kdpwallet.controller;
 
 //import io.swagger.annotations.Api;
 //import io.swagger.annotations.ApiOperation;
+import com.kdpwallet.kdpwallet.repos.UserRepo;
+import io.swagger.v3.oas.models.annotations.OpenAPI30;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
 
@@ -12,11 +18,8 @@ import java.util.concurrent.ConcurrentHashMap;
 //@Api(value = "Employee Management", protocols = "https")
 public class UserController {
 
-//    @PostMapping("/api/createuser")
-//    public void createUser(User user){
-//        System.out.println(user);
-//    }
 
+    UserRepo userRepo;
   //  @ApiOperation(value = "To access particular employee by passing the employee id", response = User.class, code = 200)
     @GetMapping(value = "/hello")
     public String createProduct() {
@@ -42,6 +45,16 @@ public class UserController {
     @GetMapping("/getsmt")
     public String getSmt(){
         return "this is a post operation";
+    }
+
+    @PostMapping("adduser")
+    public ResponseEntity<User> saveUser(@RequestBody User user){
+
+        return new ResponseEntity<>(userRepo.save(user), HttpStatus.CREATED);
+
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(user);
     }
 }
 
